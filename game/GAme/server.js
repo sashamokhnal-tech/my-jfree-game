@@ -83,23 +83,6 @@ function requireAuth(req,res,next){
   next();
 }
 
-// === Routes ===
-try{
-    const data = loadData(); ensure30DayBucket(data);
-    const tgId = String(user.id);
-    const username = user.username ? `@${user.username}` : (user.first_name || 'Player');
-    // upsert user
-    data.users[tgId] = { id: tgId, username, first_name: user.first_name||'', last_name: user.last_name||'' };
-    // create short-lived token (rotate every login)
-    const token = crypto.randomBytes(24).toString('base64url');
-    if (!data.sessions) data.sessions = {};
-    data.sessions[token] = { id: tgId, username };
-    saveData(data);
-    res.json({ ok:true, token, username });
-}catch(e){
-    res.status(500).json({error:'server'});
-  }
-
 
 app.post('/api/guest_login', (req,res)=>{
   try{
