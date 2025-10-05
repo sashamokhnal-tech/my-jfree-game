@@ -99,7 +99,6 @@ try{
 }catch(e){
     res.status(500).json({error:'server'});
   }
-});
 
 
 app.post('/api/guest_login', (req,res)=>{
