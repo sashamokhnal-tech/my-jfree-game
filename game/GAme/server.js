@@ -95,7 +95,7 @@ function requireAuth(req,res,next){
     data.sessions[token] = { id: tgId, username };
     saveData(data);
     res.json({ ok:true, token, username });
-  }catch(e){
+   catch(e){
     res.status(500).json({error:'server'});
   }
 });
