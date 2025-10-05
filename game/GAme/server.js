@@ -84,6 +84,7 @@ function requireAuth(req,res,next){
 }
 
 // === Routes ===
+try{
     const data = loadData(); ensure30DayBucket(data);
     const tgId = String(user.id);
     const username = user.username ? `@${user.username}` : (user.first_name || 'Player');
@@ -95,7 +96,7 @@ function requireAuth(req,res,next){
     data.sessions[token] = { id: tgId, username };
     saveData(data);
     res.json({ ok:true, token, username });
-   catch(e){
+}catch(e){
     res.status(500).json({error:'server'});
   }
 });
